@@ -5,9 +5,9 @@ use File::Spec;
 use File::Basename;
 use Expect;
 use Config::Tiny;
-use UUID::Tiny      qw(:std);
+use UUID::Tiny qw(:std);
 use WebService::DigitalOcean;
-use Data::Dump;
+#use Data::Dump;
 
 our $VERSION = '0.01';
 
@@ -286,14 +286,6 @@ sub get_address_for_droplet {
 
     my $sid = ref($id) ? shift(@$id) : $id;
 
-    #if (ref($id) eq 'ARRAY') {
-	#$sid = shift @$id;
-    #}
-    #else {
-	#$sid = $id;
-    #}
-
-    #say STDERR join q{ }, $sid, $id; # and exit;
     my $server = $do_obj->droplet_get($sid);
     my $ip = $server->{content}{networks}{v4}[0]{ip_address};
     
