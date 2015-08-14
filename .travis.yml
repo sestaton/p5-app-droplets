@@ -8,8 +8,12 @@ perl:
   - "5.10"
 
 before_install:
-  - curl -sL cpanmin.us | perl - https://github.com/andrewalker/p5-webservice-digitalocean.git
-
+  - cpanm Dist::Zilla
+  - git clone https://github.com/andrewalker/p5-webservice-digitalocean.git
+  - cd p5-webservice-digitalocean
+  - dzil authordeps | cpanm
+  - cd WebService-DigitalOcean-0.023 && perl Makefile.PL && make install
+  
 branches:
   only:
     - master
