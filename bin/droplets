@@ -6,7 +6,7 @@ use warnings;
 use File::Basename;
 use App::Droplets;
 use Getopt::Long;
-use Data::Dump;
+use Pod::Usage;
 
 our $VERSION = '0.01';
 my %opt;
@@ -27,10 +27,13 @@ GetOptions(\%opt,
 	   'version|v',
 	   'login|l',
 	   'help|h',
+	   'man|m',
 );
 
 usage() and exit(1) unless %opt;
 usage() and exit(0) if $opt{help};
+pod2usage( -verbose => 2 ) if $opt{man};
+
 say $VERSION and exit(0) if $opt{version};
 
 my $drop_cli = App::Droplets->new( opts => \%opt );
@@ -64,7 +67,7 @@ Options:
     --destroyall     :    Destroy all of your running droplets.
     -v|version       :    Print the version and exit.
     -h|help          :    Print usage statement.
-    -m|man           :    Print full documentation (NOT IMPLEMENTED).
+    -m|man           :    Print full documentation.
 
 END
 }
