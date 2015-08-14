@@ -9,12 +9,29 @@ This is a command-line tool for [DigitalOcean's](https://www.digitalocean.com/?r
 
 **INSTALLATION**
 
-The following command will install the `droplets` command line tool (note that this requires [git](http://git-scm.com/)):
+The following command will install the dependencies (note that this requires [git](http://git-scm.com/)):
 
-    curl -sL cpanmin.us | perl - https://github.com/andrewalker/p5-webservice-digitalocean.git
-    curl -sL cpanmin.us | perl - https://github.com/sestaton/digitalocean-cli.git
+    cpanm Dist::Zilla
+    git clone https://github.com/andrewalker/p5-webservice-digitalocean.git
+    cd p5-webservice-digitalocean
+    dzil authordeps | cpanm
+    dzil build
+    cd WebService-DigitalOcean-0.023 && perl Makefile.PL && make install
 
-The first command is necessary until that library is updated on CPAN.
+These commands are necessary until that library is updated on CPAN. Okay, now install App::Droplets.
+
+    cpanm https://github.com/sestaton/digitalocean-cli.git
+
+Alternatively, download the latest [release](https://github.com/sestaton/p5-app-droplets/releases) and run the following command in the top directory:
+
+    perl Makefile.PL
+
+If any Perl dependencies are listed after running this command, install them through the CPAN shell or any method you like. Then build and install the package.
+
+    perl Makefile.PL
+    make 
+    make test
+    make install
 
 **USAGE**
 
