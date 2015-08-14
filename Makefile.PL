@@ -27,7 +27,6 @@ WriteMakefile(
 	'Config::Tiny'             => 0,
 	'UUID::Tiny'               => 0,
 	'Type::Tiny'               => 0,
-	'Moo'                      => 0,
 	'Expect'                   => 0,
     },
     INST_SCRIPT => 'blib/bin',
