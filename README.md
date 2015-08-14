@@ -4,7 +4,7 @@ Create, destroy, inspect, and log on to your droplets from the command line
 
 **ABOUT**
 
-This is a command-line tool for [DigitalOcean's](https://www.digitalocean.com/?refcode=c4cc062482a8) REST API called `droplets`. After setting up an API key on the DigitalOcean website, you can check on all your existing droplets, query the available droplet sizes and prices by region, create new droplets, or log on to droplets (either existing droplets or ones you just created) without leaving the command line. You can also destroy one or all your droplets in one command. I find this little app handy for testing software on different distributions. It is also nice to get the server ID of a droplet at the command line and then be able to log on to that server without looking up this information in a browser.
+This is a command-line tool for [DigitalOcean's](https://www.digitalocean.com/?refcode=c4cc062482a8) REST API called `droplets`. After setting up an API key on the [DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2) website, you can check on all your existing droplets, query the available droplet sizes and prices by region, create new droplets, or log on to droplets (either existing droplets or ones you just created) without leaving the command line. You can also destroy one or all your droplets in one command. I find this little app handy for testing software on different distributions. It is also nice to get the server ID of a droplet at the command line and then be able to log on to that server without looking up this information in a browser.
 
 
 **INSTALLATION**
@@ -76,7 +76,7 @@ Now, let's create a droplet (in this case, Fedora 22)
     Creation time (seconds): 1
     ---------------------------------------------------
 
-We should be able to see this image running if we check...
+You can give the server a name, or just let a default be chosen, as above. If you want something you can remember, then specify a server name when you create the droplet. We should be able to see this droplet running if we check...
 
     $ droplets --running
     Running Droplets: 
@@ -110,7 +110,9 @@ You can log on to an existing server from the command line, or create one and lo
     logout
     Connection to 104.236.151.89 closed.
 
-Clean up...
+The logging on part may time out, but that is something I'm working on. If it does, you can still manually ssh to your server.
+
+Last, clean up...
 
     $ droplets --destroyall
     ====> Before destroy...
@@ -138,7 +140,7 @@ This project uses the [Webservice::DigitalOcean](https://metacpan.org/pod/WebSer
 
 **TODO**
 
-- Add the option to change the defaults.
+- Add the option to change the defaults and store them in the configuration.
 
 **LICENSE**
 
