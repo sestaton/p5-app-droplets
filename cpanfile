@@ -1,5 +1,5 @@
 requires 'Config::Tiny';
-requires 'WebService::DigitalOcean';
+requires 'WebService::DigitalOcean', '0.024';
 requires 'Type::Tiny';
 requires 'UUID::Tiny';
 requires 'Expect';

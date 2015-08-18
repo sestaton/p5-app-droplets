@@ -23,7 +23,7 @@ WriteMakefile(
         'Test::More' => 0,
     },
     PREREQ_PM => {
-	'WebService::DigitalOcean' => 0,
+	'WebService::DigitalOcean' => 0.024,
 	'Config::Tiny'             => 0,
 	'UUID::Tiny'               => 0,
 	'Type::Tiny'               => 0,
