@@ -11,7 +11,7 @@ This is a command-line tool for [DigitalOcean's](https://www.digitalocean.com/?r
 
 The following command will install the `droplets` application (note that this requires [git](http://git-scm.com/)):
 
-    cpanm https://github.com/sestaton/digitalocean-cli.git
+    curl -sL cpanmin.us | perl - https://github.com/sestaton/digitalocean-cli.git
 
 Alternatively, download the latest [release](https://github.com/sestaton/p5-app-droplets/releases) and run the following command in the top directory:
 
