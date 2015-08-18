@@ -1,7 +1,12 @@
 Revision history for App::Droplets
 
 Version	Date	Location
-0.01	18/14/2015	Vancouver, BC
+0.02	08/17/2015	Vancouver, BC
+
+- Update build/install process with latest API version on CPAN,
+  instead of building it from github.
+
+0.01	08/14/2015	Vancouver, BC
 
 - Initial release.	
 
