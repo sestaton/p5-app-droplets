@@ -7,7 +7,6 @@ use Expect;
 use Config::Tiny;
 use UUID::Tiny qw(:std);
 use WebService::DigitalOcean;
-#use Data::Dump;
 
 our $VERSION = '0.02';
 
