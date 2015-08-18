@@ -4,16 +4,16 @@ perl:
   - "5.18"
   - "5.16"
   - "5.14"
-#  - "5.12"
-#  - "5.10"
+  - "5.12"
+  - "5.10"
 
-before_install:
-  - cpanm Dist::Zilla
-  - git clone https://github.com/andrewalker/p5-webservice-digitalocean.git
-  - cd p5-webservice-digitalocean
-  - dzil authordeps | cpanm
-  - dzil build
-  - cd WebService-DigitalOcean-0.023 && perl Makefile.PL && make install
+#before_install:
+#  - cpanm Dist::Zilla
+#  - git clone https://github.com/andrewalker/p5-webservice-digitalocean.git
+#  - cd p5-webservice-digitalocean
+#  - dzil authordeps | cpanm
+#  - dzil build
+#  - cd WebService-DigitalOcean-0.023 && perl Makefile.PL && make install
   
 branches:
   only:
