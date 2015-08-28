@@ -102,6 +102,19 @@ sub configure {
     }
 }
 
+sub configure_defaults {
+    my $self = shift;
+
+    my $conf_file = File::Spec->catfile($ENV{HOME}, '.droplets');
+    open my $out, '>>', $conf_file;
+    
+    #print STDERR
+    #$opt->{region}  //= 'sfo1';
+    #$opt->{size}    //= '512mb';
+    #$opt->{imageid} //= 10322623;      # CentOS 7 x64
+    close $out;
+}
+
 sub get_token {
     my $self = shift;
     my ($opt) = @_;
