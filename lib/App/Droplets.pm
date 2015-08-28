@@ -79,7 +79,7 @@ sub configure {
     my $self = shift;
     my ($opt) = @_;
 
-    my $conf_file = File::Spec->catfile($ENV{HOME}, '.droplets');;
+    my $conf_file = File::Spec->catfile($ENV{HOME}, '.droplets');
     if (-e $conf_file) {
 	my $config = Config::Tiny->read( $conf_file, 'utf8' );
 	return $opt if defined $config->{droplets}->{api_token};
