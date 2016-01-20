@@ -8,7 +8,7 @@ use Config::Tiny;
 use UUID::Tiny qw(:std);
 use WebService::DigitalOcean;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 #
 # methods
@@ -30,6 +30,13 @@ sub run {
     my $token = $self->get_token($opt);
  
     my $do_obj = WebService::DigitalOcean->new({ token => $token });
+
+    ## make sure the token is valid before performing any method calls
+    my $auth = $self->_confirm_authentication($do_obj);
+    unless (defined $auth && $auth eq 'success') {
+	say "\nERROR: Could not authenticate API token: $token\nCheck that the token is valid. Exiting.\n";
+	exit(1);
+    }
     
     if ($opt->{available}) {
 	$self->report_available($do_obj, $opt->{available});
@@ -225,7 +232,7 @@ sub get_sizes {
     my ($do_obj) = @_;
     
     my $sizes = $do_obj->size_list();
-
+    
     say join "\t", "Name", "Disk_space", "Memory", "CPUs", "Cost_per_month", "Cost_per_hour", "Regions";
     for my $s (@{$sizes->{content}}) {
 	say join "\t", $s->{slug}, $s->{disk}, $s->{memory}, $s->{vcpus}, 
@@ -311,6 +318,21 @@ sub get_droplets {
     }
     else {
 	say "No running droplets.";
+    }
+}
+
+sub _confirm_authentication {
+    my $self = shift;
+    my ($do_obj) = @_;
+
+    my $content = $do_obj->region_list->{content};
+
+    if (defined $content->{id} && $content->{id} eq 'unauthorized') { # && 
+	#defined $content->{message} && $content->{message} eq 'Unable to authenticate you.') {
+	return undef;
+    }
+    else {
+	return 'success';
     }
 }
 
