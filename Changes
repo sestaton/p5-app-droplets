@@ -5,7 +5,7 @@ Version	Date	Location
 
 - Add test for authentication of API token prior to making
   any method calls. This is necessary because the object creation
-  will succeed with invalid token.
+  will succeed with an invalid token.
   
 0.02	08/17/2015	Vancouver, BC
 
