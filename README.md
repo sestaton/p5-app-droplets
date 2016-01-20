@@ -26,7 +26,7 @@ If any Perl dependencies are listed after running this command, install them thr
 
 **USAGE**
 
-The first time you run the tool you will be prompted for your API key, so have that ready. A configuration file (called ".droplets") will be stored in your home directory so you will not be prompted again. Once your key is stored, you are ready to go!
+The first time you run the tool you will be prompted for your API key (there is a link to a guide for setting up this token provided above in the **ABOUT** section of this document), so have that ready. Note that you also need to have your ssh keys set up with DigitalOcean. A configuration file (called ".droplets") will be stored in your home directory so you will not be prompted again. Once your key is stored, you are ready to go!
 
  Examples:
 
