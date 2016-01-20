@@ -1,6 +1,12 @@
 Revision history for App::Droplets
 
 Version	Date	Location
+0.03	01/20/2016	Vancouver, BC
+
+- Add test for authentication of API token prior to making
+  any method calls. This is necessary because the object creation
+  will succeed with invalid token.
+  
 0.02	08/17/2015	Vancouver, BC
 
 - Update build/install process with latest API version on CPAN,
