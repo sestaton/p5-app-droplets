@@ -2,6 +2,8 @@
 
 Create, destroy, inspect, and log on to your droplets from the command line
 
+[![Build Status](https://travis-ci.org/sestaton/p5-app-droplets.svg?branch=master)](https://travis-ci.org/sestaton/p5-app-droplets)
+
 **ABOUT**
 
 This is a command-line tool for [DigitalOcean's](https://www.digitalocean.com/?refcode=c4cc062482a8) REST API called `droplets`. After setting up an API key on the [DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2) website, you can check on all your existing droplets, query the available droplet sizes and prices by region, create new droplets, or log on to droplets (either existing droplets or ones you just created) without leaving the command line. You can also destroy one or all your droplets in one command. I find this little app handy for testing software on different distributions. It is also nice to get the server ID of a droplet at the command line and then be able to log on to that server without looking up this information in a browser.
