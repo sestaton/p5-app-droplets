@@ -337,3 +337,64 @@ sub _confirm_authentication {
 }
 
 1;
+
+__END__
+
+=head1 NAME 
+                                                                       
+App::Droplets - Create, destroy, inspect, and log on to your droplets from the command line
+
+=head1 SYNOPSIS    
+
+  ## get the available image sizes
+  droplets --available sizes
+
+  # get the available distributions
+  droplets --available images
+    DistributionIDName
+    CoreOS12789350723.3.0 (beta)
+    CentOS63723215.10 x64
+    CentOS63724255.10 x32
+    Debian63725816.0 x64
+    Debian63726626.0 x32
+    Fedora964092221 x64
+    FreeBSD1014457310.1
+    Ubuntu1032175612.04.5 x64
+    Ubuntu1032177712.04.5 x32
+    Debian103220597.0 x64
+    Debian103223787.0 x32
+    CentOS103226237 x64
+    Fedora1206578222 x64
+    Ubuntu1265844615.04 x64
+    Ubuntu1266064915.04 x32
+    Debian127782788.1 x64
+    Debian127783378.1 x32
+    CoreOS13068283723.3.0 (stable)
+    Ubuntu1308949314.04 x64
+    Ubuntu1308982314.04 x32
+
+  ## Create a droplet (in this case, Fedora 22)
+  droplets --imageid 12065782 --create
+
+  ## Check all running droplets
+  droplets --running
+
+  ## destroy one specific droplet
+  droplets --destroy --serverid 6588509
+
+  ## Create a droplet, with defaults, and log on to it
+  droplets --create --login
+
+  ## Destroy all running droplets
+  droplets --destroyall
+
+=head1 DESCRIPTION
+     
+ This is a command-line tool for DigitalOcean's REST API called droplets. After setting up an API key on the DigitalOcean website, you can check on all your existing droplets, query the available droplet sizes and prices by region, create new droplets, or log on to droplets (either existing droplets or ones you just created) without leaving the command line. 
+=head1 LICENSE
+ 
+The MIT License should included with the project. If not, it can be found at: http://opensource.org/licenses/mit-license.php
+
+Copyright (C) 2015-2016 S. Evan Staton
+
+=cut

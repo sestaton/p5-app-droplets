@@ -156,4 +156,4 @@ This project uses the [Webservice::DigitalOcean](https://metacpan.org/pod/WebSer
 
 The MIT License should included with the project. If not, it can be found at: http://opensource.org/licenses/mit-license.php
 
-Copyright (C) 2015 S. Evan Staton
+Copyright (C) 2015-2016 S. Evan Staton

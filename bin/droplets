@@ -123,13 +123,13 @@ droplets - Create, destroy, inspect, and log on to your droplets from the comman
   droplets --destroyall
 
 =head1 DESCRIPTION
-     
-
+ 
+ This is a command-line tool for DigitalOcean's REST API called droplets. After setting up an API key on the DigitalOcean website, you can check on all your existing droplets, query the available droplet sizes and prices by region, create new droplets, or log on to droplets (either existing droplets or ones you just created) without leaving the command line.     
 =head1 LICENSE
  
 The MIT License should included with the project. If not, it can be found at: http://opensource.org/licenses/mit-license.php
 
-Copyright (C) 2015 S. Evan Staton
+Copyright (C) 2015-2016 S. Evan Staton
  
 =head1 TESTED WITH:
 
