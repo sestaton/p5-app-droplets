@@ -8,7 +8,7 @@ use Config::Tiny;
 use UUID::Tiny qw(:std);
 use WebService::DigitalOcean;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 #
 # methods
@@ -327,9 +327,11 @@ sub _confirm_authentication {
 
     my $content = $do_obj->region_list->{content};
 
-    if (defined $content->{id} && $content->{id} eq 'unauthorized') { # && 
-	#defined $content->{message} && $content->{message} eq 'Unable to authenticate you.') {
-	return undef;
+    if (ref($content) eq 'HASH') {
+	if (defined $content->{id} && $content->{id} eq 'unauthorized') { # && 
+	    #defined $content->{message} && $content->{message} eq 'Unable to authenticate you.') {
+	    return undef;
+	}
     }
     else {
 	return 'success';
