@@ -13,7 +13,7 @@ my %opt;
 
 GetOptions(\%opt, 
 	   'size|s=s',
-	   'region|r=i',
+	   'region|r=s',
 	   'name|n=s',
 	   'imageid|iid=i',
 	   'serverid|sid=s',
