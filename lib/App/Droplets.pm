@@ -7,6 +7,7 @@ use Expect;
 use Config::Tiny;
 use UUID::Tiny qw(:std);
 use WebService::DigitalOcean;
+use Data::Dump::Color;
 
 our $VERSION = '0.04';
 
@@ -186,22 +187,26 @@ sub create_droplet {
     my $t1 = time;
 
     sleep 5;
-    my $server = $do_obj->droplet_get($droplet->{content}{id});
-    my $ip = $self->get_address_for_droplet($do_obj, $server->{content}{id});
-        
-    say "---------------------------------------------------";
-    say "Created Droplet:         ", $server->{content}{id}; 
-    say "Droplet name:            ", $server->{content}{name}; 
-    say "Distribution:            ", $server->{content}{image}{distribution}.q{ }.$server->{content}{image}{name};
-    say "Region:                  ", $server->{content}{region}{name};
-    say "Disk:                    ", $server->{content}{size}{disk};
-    say "Memory:                  ", $server->{content}{size_slug};
-    say "CPUs:                    ", $server->{content}{vcpus};
-    say "Server IP:               ", $ip;
-    say "Creation time (seconds): ", $t1-$t0;
-    say "---------------------------------------------------";
 
-    return $server->{content}{networks}{v4}[0]{ip_address};
+    my $success = $self->_check_droplet_params($droplet);
+    if ($success) {
+	my $server = $do_obj->droplet_get($droplet->{content}{id});
+	my $ip = $self->get_address_for_droplet($do_obj, $server->{content}{id});
+        
+	say "---------------------------------------------------";
+	say "Created Droplet:         ", $server->{content}{id}; 
+	say "Droplet name:            ", $server->{content}{name}; 
+	say "Distribution:            ", $server->{content}{image}{distribution}.q{ }.$server->{content}{image}{name};
+	say "Region:                  ", $server->{content}{region}{name};
+	say "Disk:                    ", $server->{content}{size}{disk};
+	say "Memory:                  ", $server->{content}{size_slug};
+	say "CPUs:                    ", $server->{content}{vcpus};
+	say "Server IP:               ", $ip;
+	say "Creation time (seconds): ", $t1-$t0;
+	say "---------------------------------------------------";
+
+	return $server->{content}{networks}{v4}[0]{ip_address};
+    }
 }
 
 sub report_available {
@@ -218,7 +223,7 @@ sub report_available {
 	$disp{$available}->();
     }
     else {
-	say "\nERROR: '$available' is not recognized. ".
+	say STDERR "\nERROR: '$available' is not recognized. ".
 	    "Argument must be one of: sizes, images, or regions. Exiting.\n";
 	exit(1);
     }
@@ -335,6 +340,20 @@ sub _confirm_authentication {
     }
     else {
 	return 'success';
+    }
+}
+
+sub _check_droplet_params {
+    my $self = shift;
+    my ($do_obj) = @_;
+
+    if ($do_obj->{content}{id} eq 'unprocessable_entity') {
+	say STDERR "\nERROR: There appears to be an error with the input parameters.\n";
+	say STDERR "Here is the message: ",$do_obj->{content}{message};
+	exit(1);
+    }
+    else {
+	return 1;
     }
 }
 
