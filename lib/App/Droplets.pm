@@ -7,7 +7,6 @@ use Expect;
 use Config::Tiny;
 use UUID::Tiny qw(:std);
 use WebService::DigitalOcean;
-use Data::Dump::Color;
 
 our $VERSION = '0.04';
 
@@ -187,7 +186,6 @@ sub create_droplet {
     my $t1 = time;
 
     sleep 5;
-
     my $success = $self->_check_droplet_params($droplet);
     if ($success) {
 	my $server = $do_obj->droplet_get($droplet->{content}{id});
