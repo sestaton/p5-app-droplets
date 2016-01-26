@@ -8,7 +8,7 @@ use Config::Tiny;
 use UUID::Tiny qw(:std);
 use WebService::DigitalOcean;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 #
 # methods

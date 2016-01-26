@@ -1,6 +1,11 @@
 Revision history for App::Droplets
 
 Version	Date	Location
+0.05	01/26/2016	Vancouver, BC
+
+- Fix bug with wrong type specification for region and size parameters.
+- Add method to validate parameters for creating a droplet.
+
 0.04	01/23/2016	Vancouver, BC
 
 - Fix bug with properly authenticating user token.
