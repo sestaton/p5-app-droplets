@@ -52,7 +52,8 @@ USAGE: $script [-s] [-r] [-n] [-iid] [-sid] [-c] [-a] [-l] [-h]
 
 Options:
     -s|size          :    The size ID requested for creating a new Droplet.
-    -r|region        :    The region ID requested for creating a new Droplet.
+    -r|region        :    The region ID (i.e, 'slug' as given by '--available regions' option)
+                          requested for creating a new Droplet.
     -n|name          :    The name for the instance (Default: a UUID string).
     -iid|image       :    The image ID requested for creating a new Droplet.
     -sid|serverid    :    The server ID to log onto, or destory.
