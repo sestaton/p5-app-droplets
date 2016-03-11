@@ -1,6 +1,10 @@
 Revision history for App::Droplets
 
 Version	Date	Location
+0.06 	03/11/2016	Vancouver, BC
+
+- Add option for logging on to server as a specific user (other than root).
+
 0.05	01/26/2016	Vancouver, BC
 
 - Fix bug with wrong type specification for region and size parameters.
