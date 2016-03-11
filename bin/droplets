@@ -14,11 +14,12 @@ my %opt;
 GetOptions(\%opt, 
 	   'size|s=s',
 	   'region|r=s',
-	   'name|n=s',
+	   'servername|n=s',
 	   'imageid|iid=i',
 	   'serverid|sid=s',
 	   'configfile|c=s',
 	   'available|a=s',
+	   'username|u=s',
 	   'running',
 	   'destroy',
 	   'destroyall',
@@ -47,20 +48,22 @@ sub usage {
     my $script = basename($0);
   print STDERR <<END
 
-USAGE: $script [-s] [-r] [-n] [-iid] [-sid] [-c] [-a] [-l] [-h]
+USAGE: $script [-s] [-r] [-u] [-n] [-iid] [-sid] [-c] [-a] [-l] [-h]
                [--droplets] [--create] [--destroy] [--destroyall]       
 
 Options:
     -s|size          :    The size ID requested for creating a new Droplet.
     -r|region        :    The region ID (i.e, 'slug' as given by '--available regions' option)
                           requested for creating a new Droplet.
-    -n|name          :    The name for the instance (Default: a UUID string).
+    -n|servername    :    The name for the instance (Default: a UUID string).
     -iid|image       :    The image ID requested for creating a new Droplet.
     -sid|serverid    :    The server ID to log onto, or destory.
     -c|configfile    :    The DigitalOcean configuration file.
     -a|available     :    Given an argument of either 'sizes', 'regions', or 'images', print
                           all of the available options for that choice.
     -l|login         :    If given with other options, will log on to the created Droplet.
+    -u|username      :    Combined with --login, the username to use for logging on to 
+                          the server given by --serverid (Default: root).
     --running        :    Print all running Droplets.
     --create         :    Create a droplet with defaults or given parameters
                           (Defaults: size => 512mb, region => San Francisco, OS => CentOS 7). 
@@ -114,6 +117,12 @@ droplets - Create, destroy, inspect, and log on to your droplets from the comman
   ## Check all running droplets
   droplets --running
 
+  ## login to server as root
+  droplets --login --serverid 6588509
+
+  ## login to server as user 'evan'
+  droplets --login --username evan --serverid 6588509
+
   ## destroy one specific droplet
   droplets --destroy --serverid 6588509
 
@@ -126,22 +135,13 @@ droplets - Create, destroy, inspect, and log on to your droplets from the comman
 =head1 DESCRIPTION
  
  This is a command-line tool for DigitalOcean's REST API called droplets. After setting up an API key on the DigitalOcean website, you can check on all your existing droplets, query the available droplet sizes and prices by region, create new droplets, or log on to droplets (either existing droplets or ones you just created) without leaving the command line.     
+
 =head1 LICENSE
  
 The MIT License should included with the project. If not, it can be found at: http://opensource.org/licenses/mit-license.php
 
 Copyright (C) 2015-2016 S. Evan Staton
  
-=head1 TESTED WITH:
-
-=over
-
-=item *                                                                                                      
-
-Perl 5.22.0 (Fedora 21)
-
-=back
-
 =head1 AUTHOR 
 
 S. Evan Staton                                                
@@ -162,7 +162,7 @@ statonse at gmail dot com
 
  The region ID requested for creating a new Droplet.
 
-=item -n, --name
+=item -n, --servername
 
  The name for the instance (Default: a UUID string).
 
@@ -186,6 +186,11 @@ statonse at gmail dot com
 =item -l, --login
 
  If given with other options, will log on to the created Droplet.
+
+=item -u, --username
+
+ Combined with --login, the username to use for logging on to the 
+ server specified by --serverid (Default: root).
 
 =item --running
 

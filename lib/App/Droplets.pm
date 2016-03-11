@@ -52,9 +52,10 @@ sub run {
     if ($opt->{login}) {
 	my $cmd;
 	if (defined $opt->{serverid}) {
-	    my $ip = $self->get_address_for_droplet($do_obj, $opt->{serverid});
-	    $cmd = sprintf "ssh root@%s", $ip;
-	    my $ssh = Expect->new;
+	    my $user = $opt->{username} // 'root';
+	    my $ip   = $self->get_address_for_droplet($do_obj, $opt->{serverid});
+	    $cmd     = sprintf "ssh $user@%s", $ip;
+	    my $ssh  = Expect->new;
 	    $ssh->raw_pty(1);
 	    $ssh->slave->clone_winsize_from(\*STDIN);
 	    $ssh->spawn($cmd);
@@ -62,7 +63,7 @@ sub run {
 	    $ssh->close();
 	}
 	else {
-	    $cmd = sprintf "ssh root@%s", $server_addr;
+	    $cmd    = sprintf "ssh root@%s", $server_addr;
 	    my $ssh = Expect->new;
 	    $ssh->raw_pty(1);
 	    $ssh->slave->clone_winsize_from(\*STDIN);
@@ -177,11 +178,11 @@ sub create_droplet {
     
     my $t0 = time;
     my $droplet = $do_obj->droplet_create({
-	name       => $opt->{name},
-	size       => $opt->{size},
-	image      => $opt->{imageid},
-	region     => $opt->{region},
-	ssh_keys   => [ $ssh_id ],
+	name     => $opt->{name},
+	size     => $opt->{size},
+	image    => $opt->{imageid},
+	region   => $opt->{region},
+	ssh_keys => [ $ssh_id ],
     });
     my $t1 = time;
 
