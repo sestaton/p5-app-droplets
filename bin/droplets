@@ -8,7 +8,7 @@ use App::Droplets;
 use Getopt::Long;
 use Pod::Usage;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07.0';
 my %opt;
 
 GetOptions(\%opt, 
@@ -16,7 +16,7 @@ GetOptions(\%opt,
 	   'region|r=s',
 	   'servername|n=s',
 	   'imageid|iid=i',
-	   'serverid|sid=s',
+	   'serverid|sid=s{1,}' => \@{$opt{serverid}},
 	   'configfile|c=s',
 	   'available|a=s',
 	   'username|u=s',
@@ -57,7 +57,7 @@ Options:
                           requested for creating a new Droplet.
     -n|servername    :    The name for the instance (Default: a UUID string).
     -iid|image       :    The image ID requested for creating a new Droplet.
-    -sid|serverid    :    The server ID to log onto, or destory.
+    -sid|serverid    :    The server ID to log onto, or destory (when combined with '--destroy', multiple IDs may be given).
     -c|configfile    :    The DigitalOcean configuration file.
     -a|available     :    Given an argument of either 'sizes', 'regions', or 'images', print
                           all of the available options for that choice.
@@ -89,13 +89,13 @@ droplets - Create, destroy, inspect, and log on to your droplets from the comman
 
   # get the available distributions
   droplets --available images
-  Distribution	ID	Name
+  Distribution	ID	        Name
   CoreOS	12789350	723.3.0 (beta)
-  CentOS	6372321	5.10 x64
-  CentOS	6372425	5.10 x32
-  Debian	6372581	6.0 x64
-  Debian	6372662	6.0 x32
-  Fedora	9640922	21 x64
+  CentOS	6372321	        5.10 x64
+  CentOS	6372425	        5.10 x32
+  Debian	6372581	        6.0 x64
+  Debian	6372662	        6.0 x32
+  Fedora	9640922   	21 x64
   FreeBSD	10144573	10.1
   Ubuntu	10321756	12.04.5 x64
   Ubuntu	10321777	12.04.5 x32
@@ -125,6 +125,9 @@ droplets - Create, destroy, inspect, and log on to your droplets from the comman
 
   ## destroy one specific droplet
   droplets --destroy --serverid 6588509
+
+  ## destroy numerous droplets in one go
+  droplets --destroy --serverid 6588509 6588510 6588511 
 
   ## Create a droplet, with defaults, and log on to it
   droplets --create --login

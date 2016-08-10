@@ -8,7 +8,7 @@ use Config::Tiny;
 use UUID::Tiny qw(:std);
 use WebService::DigitalOcean;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07.0';
 
 #
 # methods
@@ -48,12 +48,21 @@ sub run {
     }
 
     my $server_addr = $self->create_droplet($do_obj, $config, $opt) if $opt->{create};
-    
+
     if ($opt->{login}) {
-	my $cmd;
-	if (defined $opt->{serverid}) {
+	my ($cmd, $serverid);
+	if (defined $opt->{serverid}) { 
+	    if (@{$opt->{serverid}} == 1) {
+		$serverid = shift @{$opt->{serverid}};
+	    }
+	    else {
+		say "\nERROR: Only one server ID may be given with the '--login' option to avoid unexpected results. ".
+		    "Check the '--serverid' arguments. Exiting.\n";
+		exit(1);
+	    }
+
 	    my $user = $opt->{username} // 'root';
-	    my $ip   = $self->get_address_for_droplet($do_obj, $opt->{serverid});
+	    my $ip   = $self->get_address_for_droplet($do_obj, $serverid);
 	    $cmd     = sprintf "ssh $user@%s", $ip;
 	    my $ssh  = Expect->new;
 	    $ssh->raw_pty(1);
@@ -74,7 +83,7 @@ sub run {
     }
 
     if ($opt->{destroy}) {
-	my @ids = split /\,/, $opt->{serverid};
+	my @ids = @{$opt->{serverid}};
 	$self->destroy_droplet($do_obj, \@ids);
     }
 
@@ -371,27 +380,27 @@ App::Droplets - Create, destroy, inspect, and log on to your droplets from the c
 
   # get the available distributions
   droplets --available images
-    DistributionIDName
-    CoreOS12789350723.3.0 (beta)
-    CentOS63723215.10 x64
-    CentOS63724255.10 x32
-    Debian63725816.0 x64
-    Debian63726626.0 x32
-    Fedora964092221 x64
-    FreeBSD1014457310.1
-    Ubuntu1032175612.04.5 x64
-    Ubuntu1032177712.04.5 x32
-    Debian103220597.0 x64
-    Debian103223787.0 x32
-    CentOS103226237 x64
-    Fedora1206578222 x64
-    Ubuntu1265844615.04 x64
-    Ubuntu1266064915.04 x32
-    Debian127782788.1 x64
-    Debian127783378.1 x32
-    CoreOS13068283723.3.0 (stable)
-    Ubuntu1308949314.04 x64
-    Ubuntu1308982314.04 x32
+    Distribution  ID          Name
+    CoreOS        12789350    723.3.0 (beta)
+    CentOS        6372321     5.10 x64
+    CentOS        6372425     5.10 x32
+    Debian        6372581     6.0 x64
+    Debian        6372662     6.0 x32
+    Fedora        9640922     21 x64
+    FreeBSD       10144573    10.1
+    Ubuntu        10321756    12.04.5 x64
+    Ubuntu        10321777    12.04.5 x32
+    Debian        10322059    7.0 x64
+    Debian        10322378    7.0 x32
+    CentOS        10322623    7 x64
+    Fedora        12065782    22 x64
+    Ubuntu        12658446    15.04 x64
+    Ubuntu        12660649    15.04 x32
+    Debian        12778278    8.1 x64
+    Debian        12778337    8.1 x32
+    CoreOS        13068283    723.3.0 (stable)
+    Ubuntu        13089493    14.04 x64
+    Ubuntu        13089823    14.04 x32
 
   ## Create a droplet (in this case, Fedora 22)
   droplets --imageid 12065782 --create
@@ -401,6 +410,8 @@ App::Droplets - Create, destroy, inspect, and log on to your droplets from the c
 
   ## destroy one specific droplet
   droplets --destroy --serverid 6588509
+
+  ## destroy numerous droplets in one go                                                                                                droplets --destroy --serverid 6588509 6588510 6588511
 
   ## Create a droplet, with defaults, and log on to it
   droplets --create --login
