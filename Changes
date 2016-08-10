@@ -1,6 +1,12 @@
 Revision history for App::Droplets
 
 Version	Date	Location
+0.07.0	08/09/2016	Vancouver, BC
+
+- Add option to take multiple server IDs with --destroy option. This was already in place
+  if the IDs were joined by a comma, now this works with a list and is documented.
+- Fix POD format with example output fields not being separated or readable. 
+
 0.06 	03/11/2016	Vancouver, BC
 
 - Add option for logging on to server as a specific user (other than root).
