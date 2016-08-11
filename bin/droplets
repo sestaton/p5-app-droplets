@@ -8,27 +8,28 @@ use App::Droplets;
 use Getopt::Long;
 use Pod::Usage;
 
-our $VERSION = '0.07.0';
+our $VERSION = '0.07.1';
 my %opt;
 
-GetOptions(\%opt, 
-	   'size|s=s',
-	   'region|r=s',
-	   'servername|n=s',
-	   'imageid|iid=i',
-	   'serverid|sid=s{1,}' => \@{$opt{serverid}},
-	   'configfile|c=s',
-	   'available|a=s',
-	   'username|u=s',
-	   'running',
-	   'destroy',
-	   'destroyall',
-	   'create',
-	   'configure',
-	   'version|v',
-	   'login|l',
-	   'help|h',
-	   'man|m',
+my @serverids;
+GetOptions(\%opt,
+    'size|s=s',
+    'region|r=s',
+    'servername|n=s',
+    'imageid|iid=i',
+    'serverid|sid=s{1,}' => \@serverids,
+    'configfile|c=s',
+    'available|a=s',
+    'username|u=s',
+    'running',
+    'destroy',
+    'destroyall',
+    'create',
+    'configure',
+    'version|v',
+    'login|l',
+    'help|h',
+    'man|m',
 );
 
 usage() and exit(1) unless %opt;
@@ -37,6 +38,7 @@ pod2usage( -verbose => 2 ) if $opt{man};
 
 say $VERSION and exit(0) if $opt{version};
 
+$opt{serverid} = \@serverids;
 my $drop_cli = App::Droplets->new( opts => \%opt );
 $drop_cli->run;
 
