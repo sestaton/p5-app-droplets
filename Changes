@@ -1,6 +1,11 @@
 Revision history for App::Droplets
 
 Version	Date	Location
+0.07.1	08/10/22016	Vancouver, Bc
+
+- Bug fix for when no arguments are given the program should generate a help message.
+- Related to the above, handling multiple server IDs was not being evaluated correctly.
+
 0.07.0	08/09/2016	Vancouver, BC
 
 - Add option to take multiple server IDs with --destroy option. This was already in place
