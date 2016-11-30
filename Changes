@@ -1,7 +1,15 @@
 Revision history for App::Droplets
 
 Version	Date	Location
-0.07.1	08/10/22016	Vancouver, Bc
+0.07.2	11/30/2016	Vancouver, BC
+
+- Bug fix for logging on to droplet when creating an image.
+- Bug fix for processing options in the correct order.
+- Add alias for --login option (called --logon) to avoid having to retype commands due to
+  this minor typo.
+- Refactor code to log on to droplet by not having the same code repeated for separate options.
+
+0.07.1	08/10/2016	Vancouver, BC
 
 - Bug fix for when no arguments are given the program should generate a help message.
 - Related to the above, handling multiple server IDs was not being evaluated correctly.
