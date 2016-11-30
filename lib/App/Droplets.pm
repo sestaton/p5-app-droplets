@@ -50,7 +50,7 @@ sub run {
 
     my $server_addr = $self->create_droplet($do_obj, $config, $opt) if $opt->{create};
 
-    if ($opt->{login}) {
+    if ($opt->{login} || $opt->{logon}) {
 	my ($cmd, $serverid);
 	if (@{$opt->{serverid}}) { 
 	    if (@{$opt->{serverid}} == 1) {
@@ -73,15 +73,6 @@ sub run {
 	$ssh->interact();
 	$ssh->close();
     }
-    #else {
-	#$cmd = sprintf "ssh root@%s", $server_addr;
-	#my $ssh = Expect->new;
-	#$ssh->raw_pty(1);
-	#$ssh->slave->clone_winsize_from(\*STDIN);
-	#$ssh->spawn($cmd);
-	#$ssh->interact();
-	#$ssh->close();
-    #}
 
     if ($opt->{destroy}) {
 	my @ids = @{$opt->{serverid}};
@@ -184,7 +175,7 @@ sub create_droplet {
     $opt->{region}  //= 'sfo1';        # San Francisco
     $opt->{size}    //= '512mb';       # 512MB
     $opt->{name}    //= create_uuid_as_string(UUID_V1);
-    $opt->{imageid} //= 10322623;      # CentOS 7 x64
+    $opt->{imageid} //= 17384153;      # CentOS 7.2 x64
     
     my $t0 = time;
     my $droplet = $do_obj->droplet_create({
