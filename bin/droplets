@@ -28,6 +28,7 @@ GetOptions(\%opt,
     'configure',
     'version|v',
     'login|l',
+    'logon',
     'help|h',
     'man|m',
 );
@@ -68,6 +69,7 @@ Options:
     -a|available     :    Given an argument of either 'sizes', 'regions', or 'images', print
                           all of the available options for that choice.
     -l|login         :    If given with other options, will log on to the created Droplet.
+    --logon          :    Alias for --login option. Both work the same. This is to avoid having to remember the exact name.
     -u|username      :    Combined with --login, the username to use for logging on to 
                           the server given by --serverid (Default: root).
     --running        :    Print all running Droplets.
@@ -195,6 +197,11 @@ statonse at gmail dot com
 =item -l, --login
 
  If given with other options, will log on to the created Droplet.
+
+=item --logon
+
+ This option has the same behavior as --login and it exists to avoid accidently typing "--logon" and
+ having to then look up the name of the option. 
 
 =item -u, --username
 
