@@ -9,7 +9,7 @@ use UUID::Tiny qw(:std);
 use WebService::DigitalOcean;
 use Data::Dump::Color;
 
-our $VERSION = '0.07.1';
+our $VERSION = '0.07.2';
 
 #
 # methods
