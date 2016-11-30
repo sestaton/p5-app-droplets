@@ -7,6 +7,7 @@ use Expect;
 use Config::Tiny;
 use UUID::Tiny qw(:std);
 use WebService::DigitalOcean;
+use Data::Dump::Color;
 
 our $VERSION = '0.07.1';
 
@@ -51,36 +52,36 @@ sub run {
 
     if ($opt->{login}) {
 	my ($cmd, $serverid);
-	if (defined $opt->{serverid}) { 
+	if (@{$opt->{serverid}}) { 
 	    if (@{$opt->{serverid}} == 1) {
 		$serverid = shift @{$opt->{serverid}};
 	    }
-	    else {
+	    elsif (@{$opt->{serverid}} > 1) { 
 		say "\nERROR: Only one server ID may be given with the '--login' option to avoid unexpected results. ".
 		    "Check the '--serverid' arguments. Exiting.\n";
 		exit(1);
 	    }
+	}
 
-	    my $user = $opt->{username} // 'root';
-	    my $ip   = $self->get_address_for_droplet($do_obj, $serverid);
-	    $cmd     = sprintf "ssh $user@%s", $ip;
-	    my $ssh  = Expect->new;
-	    $ssh->raw_pty(1);
-	    $ssh->slave->clone_winsize_from(\*STDIN);
-	    $ssh->spawn($cmd);
-	    $ssh->interact();
-	    $ssh->close();
-	}
-	else {
-	    $cmd    = sprintf "ssh root@%s", $server_addr;
-	    my $ssh = Expect->new;
-	    $ssh->raw_pty(1);
-	    $ssh->slave->clone_winsize_from(\*STDIN);
-	    $ssh->spawn($cmd);
-	    $ssh->interact();
-	    $ssh->close();
-	}
+	my $user = $opt->{username} // 'root';
+	my $ip = defined $serverid ? $self->get_address_for_droplet($do_obj, $serverid) : $server_addr;
+	$cmd = sprintf "ssh $user@%s", $ip;
+	my $ssh = Expect->new;
+	$ssh->raw_pty(1);
+	$ssh->slave->clone_winsize_from(\*STDIN);
+	$ssh->spawn($cmd);
+	$ssh->interact();
+	$ssh->close();
     }
+    #else {
+	#$cmd = sprintf "ssh root@%s", $server_addr;
+	#my $ssh = Expect->new;
+	#$ssh->raw_pty(1);
+	#$ssh->slave->clone_winsize_from(\*STDIN);
+	#$ssh->spawn($cmd);
+	#$ssh->interact();
+	#$ssh->close();
+    #}
 
     if ($opt->{destroy}) {
 	my @ids = @{$opt->{serverid}};
