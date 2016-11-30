@@ -32,11 +32,15 @@ GetOptions(\%opt,
     'man|m',
 );
 
-usage() and exit(1) unless %opt;
-usage() and exit(0) if $opt{help};
 pod2usage( -verbose => 2 ) if $opt{man};
-
+usage() and exit(0) if $opt{help};
 say $VERSION and exit(0) if $opt{version};
+
+unless (%opt) {
+    say STDERR "\nERROR: Command line not parsed correctly. Please check arguments. Exiting.";
+    usage();
+    exit(1);
+}
 
 $opt{serverid} = \@serverids;
 my $drop_cli = App::Droplets->new( opts => \%opt );
