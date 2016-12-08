@@ -61,7 +61,6 @@ unless (%opt) {
     exit(1);
 }
 
-$opt{serverid} = \@serverids;
 my $drop_cli = App::Droplets->new( opts => \%opt );
 $drop_cli->run;
 
@@ -82,12 +81,14 @@ Options:
                           requested for creating a new Droplet.
     -n|servername    :    The name for the instance (Default: a UUID string).
     -iid|image       :    The image ID requested for creating a new Droplet.
-    -sid|serverid    :    The server ID to log onto, or destory (when combined with '--destroy', multiple IDs may be given).
+    -sid|serverid    :    The server ID to log onto, or destory (when combined with '--destroy', 
+			  multiple IDs may be given).
     -c|configfile    :    The DigitalOcean configuration file.
     -a|available     :    Given an argument of either 'sizes', 'regions', or 'images', print
                           all of the available options for that choice.
     -l|login         :    If given with other options, will log on to the created Droplet.
-    --logon          :    Alias for --login option. Both work the same. This is to avoid having to remember the exact name.
+    --logon          :    Alias for --login option. Both work the same. This is to avoid having 
+                          to remember the exact name.
     -u|username      :    Combined with --login, the username to use for logging on to 
                           the server given by --serverid (Default: root).
     --running        :    Print all running Droplets.
