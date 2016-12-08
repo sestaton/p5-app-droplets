@@ -7,20 +7,21 @@ use File::Basename;
 use App::Droplets;
 use Getopt::Long;
 use Pod::Usage;
+#use Data::Dump::Color;
 
-our $VERSION = '0.07.2';
+our $VERSION = '0.07.3';
 my %opt;
 
-my @serverids;
 GetOptions(\%opt,
     'size|s=s',
     'region|r=s',
     'servername|n=s',
     'imageid|iid=i',
-    'serverid|sid=s{1,}' => \@serverids,
+    'serverid|sid=i@',
     'configfile|c=s',
     'available|a=s',
     'username|u=s',
+    'password|p=s',
     'running',
     'destroy',
     'destroyall',
@@ -36,6 +37,23 @@ GetOptions(\%opt,
 pod2usage( -verbose => 2 ) if $opt{man};
 usage() and exit(0) if $opt{help};
 say $VERSION and exit(0) if $opt{version};
+
+if ($opt{login} || $opt{logon}) {
+    # we need a server ID regarless of the user
+    if(!$opt{serverid}) { #@{$opt{serverid}}) {
+	say STDERR "\nERROR: A server ID is required. Please check arguments. Exiting.";
+	usage();
+	exit(1);
+    }
+
+    # if a regular user is attempting to log on, we need a password
+    if ($opt{username}) {
+	say STDERR "\nERROR: A password is required to log on a non-root user. Please check arguments. Exiting."
+	    if !$opt{password};
+	usage();
+	exit(1);
+    }
+}
 
 unless (%opt) {
     say STDERR "\nERROR: Command line not parsed correctly. Please check arguments. Exiting.";

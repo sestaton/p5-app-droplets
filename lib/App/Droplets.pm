@@ -9,7 +9,7 @@ use UUID::Tiny qw(:std);
 use WebService::DigitalOcean;
 #use Data::Dump::Color;
 
-our $VERSION = '0.07.2';
+our $VERSION = '0.07.3';
 
 #
 # methods
@@ -32,7 +32,7 @@ sub run {
  
     my $do_obj = WebService::DigitalOcean->new({ token => $token });
 
-    ## make sure the token is valid before performing any method calls
+    # make sure the token is valid before performing any method calls
     my $auth = $self->_confirm_authentication($do_obj);
     unless (defined $auth && $auth eq 'success') {
 	say "\nERROR: Could not authenticate API token: $token\nCheck that the token is valid. Exiting.\n";
@@ -62,15 +62,33 @@ sub run {
 		exit(1);
 	    }
 	}
-
+	
 	my $user = $opt->{username} // 'root';
 	my $ip = defined $serverid ? $self->get_address_for_droplet($do_obj, $serverid) : $server_addr;
 	$cmd = sprintf "ssh $user@%s", $ip;
 	my $ssh = Expect->new;
-	$ssh->raw_pty(1);
 	$ssh->slave->clone_winsize_from(\*STDIN);
-	$ssh->spawn($cmd);
-	$ssh->interact();
+
+	if ($opt->{username}) {
+	    $ssh->manual_stty(1);
+	    $ssh->spawn($cmd);
+	    #$ssh->slave->stty(qw(raw -echo)); # does not return prompt
+	    $ssh->expect(10, 
+			 [ 
+			   'password: ',
+			   sub { 
+			       my $fh = shift;
+			       say $fh $opt->{password};
+			       exp_continue;
+			   }
+			   ],
+		);
+	    $ssh->interact();
+	}
+	else {
+	    $ssh->spawn($cmd);
+	    $ssh->interact();
+	}
 	$ssh->close();
     }
 
