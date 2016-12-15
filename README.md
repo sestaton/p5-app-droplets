@@ -100,8 +100,6 @@ And we can destroy it with one command...
     ====> After destroy...
     No running droplets.
 
-Note: You may get a warning about content-type when destroying a droplet, this is something that can be ignored for now (bug in the Perl API).
-
 You can log on to an existing server from the command line, or create one and log on. Here, we just use the defaults...
 
     $ droplets --create --login
@@ -119,9 +117,23 @@ You can log on to an existing server from the command line, or create one and lo
     logout
     Connection to 104.236.151.89 closed.
 
-The logging on part may time out, but that is something I'm working on. If it does, you can still manually ssh to your server.
+You will notice the default is to log on as the root user. For images you plan to keep around, it is probably best to create regular user accounts using whatever methods apply for the Linux OS you created. Then, you can log on to the image using that user account instead of root:
 
-Last, clean up...
+    $ droplets -u evan -p somesecurepass --logon
+    [root@908c31cf-42af-11e5-8d52-9bf6c9a52cfe ~]$
+
+One final note about logging on to your droplets: you can use `--login`, `--logon` or `-l' to achieve the same purpose. I find this easier to work with than trying to remember the name of the command or having to look it up each time.
+
+We can destroy a single droplet...
+
+    $ droplets --destroy --serverid 6588509
+    ====> Before destroy...
+    Running Droplets:
+    Droplet 187ebaa6-42ac-11e5-bd97-de968ce03bd5 has id 6588509, IP address 198.199.102.123, Gateway 198.199.102.1, and Netmask 255.255.255.0
+    ====> After destroy...
+    No running droplets.
+
+Or, destroy all running droplets in one go. This convenient when you have a bunch of images that are no longer needed.
 
     $ droplets --destroyall
     ====> Before destroy...
