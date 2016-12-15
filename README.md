@@ -110,8 +110,8 @@ You can log on to an existing server from the command line, or create one and lo
 
 You will notice the default is to log on as the root user. For images you plan to keep around, it is probably best to create regular user accounts using whatever methods apply for the Linux OS you created. Then, you can log on to the image using that user account instead of root:
 
-    $ droplets -u evan -p somesecurepass --logon
-    [root@908c31cf-42af-11e5-8d52-9bf6c9a52cfe ~]$
+    $ droplets -u evan -p somesecurepass -sid 6588509 --logon
+    [evan@908c31cf-42af-11e5-8d52-9bf6c9a52cfe ~]$
 
 One final note about logging on to your droplets: you can use `--login`, `--logon` or `-l' to achieve the same purpose. I find this easier to work with than trying to remember the name of the command or having to look it up each time.
 
