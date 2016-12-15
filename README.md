@@ -91,15 +91,6 @@ You can give the server a name, or just let a default be chosen, as above. If yo
     Running Droplets: 
     Droplet 187ebaa6-42ac-11e5-bd97-de968ce03bd5 has id 6588509, IP address 198.199.102.123, Gateway 198.199.102.1, and Netmask 255.255.255.0
 
-And we can destroy it with one command...
-
-    $ droplets --destroy --serverid 6588509
-    ====> Before destroy...
-    Running Droplets: 
-    Droplet 187ebaa6-42ac-11e5-bd97-de968ce03bd5 has id 6588509, IP address 198.199.102.123, Gateway 198.199.102.1, and Netmask 255.255.255.0
-    ====> After destroy...
-    No running droplets.
-
 You can log on to an existing server from the command line, or create one and log on. Here, we just use the defaults...
 
     $ droplets --create --login
