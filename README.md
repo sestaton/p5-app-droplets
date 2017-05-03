@@ -113,7 +113,7 @@ You will notice the default is to log on as the root user. For images you plan t
     $ droplets --user evan --password somesecurepass --serverid 6588509 --logon
     [evan@908c31cf-42af-11e5-8d52-9bf6c9a52cfe ~]$
 
-One final note about logging on to your droplets: you can use `--login`, `--logon` or `-l' to achieve the same purpose. I find this easier to work with than trying to remember the name of the command or having to look it up each time.
+One final note about logging on to your droplets: you can use `--login`, `--logon` or `-l` to achieve the same purpose. I find this easier to work with than trying to remember the name of the command or having to look it up each time.
 
 We can destroy a single droplet...
 
@@ -158,4 +158,4 @@ This project uses the [Webservice::DigitalOcean](https://metacpan.org/pod/WebSer
 
 The MIT License should included with the project. If not, it can be found at: http://opensource.org/licenses/mit-license.php
 
-Copyright (C) 2015-2016 S. Evan Staton
+Copyright (C) 2015-2017 S. Evan Staton
